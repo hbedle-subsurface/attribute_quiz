@@ -1,11 +1,11 @@
 # What Seismic Attribute Are You?
 
-**Developed by [Dr. Heather Bedle](mailto:hbedle@ou.edu) and [Dr. April Moreno-Ward](mailto:April.MorenoWard-1@ou.edu)**  
+**Developed by [Dr. Heather Bedle](mailto:hbedle@ou.edu) specifically for [Dr. April Moreno-Ward](mailto:April.MorenoWard-1@ou.edu)**  
 AASPI (Attribute Assisted Seismic Processing & Interpretation)  
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
-**[Launch the quiz](https://hbedle-subsurface.github.io/seismic_ml_assessment/)** ← update with actual URL
+**[Launch the quiz](https://hbedle-subsurface.github.io/attribute_quiz/)**
 
 ---
 
@@ -68,14 +68,6 @@ Every attribute in the quiz is part of the AASPI attribute library. The result d
 
 ---
 
-## Citation
-
-If you use this in a course, a presentation, or anywhere that requires a citation:
-
-> Bedle, H. and Moreno-Ward, A. (2026). *What Seismic Attribute Are You? A Scientific Personality Quiz*, v1.0. AASPI, University of Oklahoma.
-
----
-
 ## License
 
 This work is licensed under [Creative Commons Attribution ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
@@ -88,4 +80,4 @@ You are free to share and adapt this tool provided you give appropriate credit a
 
 Developed at AASPI (Attribute Assisted Seismic Processing and Interpretation), University of Oklahoma, School of Geosciences. Built on the AASPI attribute library developed over more than a decade of research by the AASPI consortium and its sponsors.
 
-The attribute science in the result cards draws on Chopra and Marfurt (2007, 2024), the AASPI software documentation, and the authors' collective experience explaining to students why you cannot just run coherence without computing dip first.
+The attribute science in the result cards draws on Chopra and Marfurt (2007, 2024), the AASPI software documentation, and the author's experience explaining to students why you cannot just run coherence without computing dip first.
