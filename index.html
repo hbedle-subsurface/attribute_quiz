@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Seismic Attribute Are You?</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink:      #E91E8C;
+  --pink-2:    #FF6BC6;
+  --pink-3:    #FFB3E1;
+  --pink-bg:   #FFF0F8;
+  --lavender:  #C084FC;
+  --teal:      #06B6D4;
+  --gold:      #F59E0B;
+  --ink:       #1A0A14;
+  --ink-mid:   #5C3A50;
+  --ink-light: #A07090;
+  --paper:     #FFFAFD;
+  --bg:        #FDF4F9;
+  --border:    rgba(233,30,140,0.15);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── ANIMATED BG ── */
+body::before {
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 20%, rgba(233,30,140,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 90% 80%, rgba(192,132,252,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 60% 10%, rgba(6,182,212,0.06) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── SPARKLES ── */
+.sparkle {
+  position:fixed;pointer-events:none;z-index:0;
+  font-size:16px;opacity:0;
+  animation: float-up 4s ease-in infinite;
+}
+@keyframes float-up {
+  0%{opacity:0;transform:translateY(0) rotate(0deg) scale(0.5)}
+  20%{opacity:0.7}
+  80%{opacity:0.4}
+  100%{opacity:0;transform:translateY(-100px) rotate(360deg) scale(1.2)}
+}
+
+/* ── WRAPPER ── */
+.wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:2rem 1.5rem 5rem}
+
+/* ── HEADER ── */
+.site-header {
+  text-align:center;
+  padding:3rem 1rem 2rem;
+  position:relative;
+}
+.header-badge {
+  display:inline-flex;align-items:center;gap:7px;
+  background:linear-gradient(135deg, var(--pink), var(--lavender));
+  border-radius:20px;padding:5px 16px;
+  font-family:'DM Mono',monospace;font-size:10.5px;
+  color:white;letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.site-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,6vw,58px);
+  line-height:1.1;
+  color:var(--ink);
+  margin-bottom:0.75rem;
+}
+.site-title em {
+  font-style:italic;
+  background:linear-gradient(135deg, var(--pink), var(--lavender));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.site-sub {
+  font-size:15px;color:var(--ink-mid);line-height:1.75;max-width:480px;margin:0 auto 2rem;
+}
+.site-sub strong{color:var(--pink);font-weight:600}
+.unicorn-row{font-size:28px;margin-bottom:1.5rem;letter-spacing:8px}
+
+/* ── PROGRESS ── */
+.progress-wrap{
+  background:rgba(233,30,140,0.08);
+  border-radius:20px;height:6px;
+  margin:0 auto 2.5rem;
+  max-width:400px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:6px;border-radius:20px;
+  background:linear-gradient(90deg, var(--pink), var(--lavender));
+  transition:width 0.5s cubic-bezier(.4,0,.2,1);
+}
+.progress-label{
+  text-align:center;margin-bottom:0.75rem;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--ink-light);letter-spacing:0.06em;
+}
+
+/* ── QUESTION CARD ── */
+.q-card {
+  background:var(--paper);
+  border-radius:20px;
+  border:1.5px solid var(--border);
+  padding:2rem 2rem 1.75rem;
+  margin-bottom:1.5rem;
+  box-shadow:0 4px 24px rgba(233,30,140,0.07), 0 1px 4px rgba(233,30,140,0.05);
+  animation: card-in 0.4s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes card-in {
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.q-num {
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--pink-2);letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.q-text {
+  font-family:'Playfair Display',serif;
+  font-size:20px;line-height:1.4;color:var(--ink);
+  margin-bottom:1.5rem;
+}
+.q-emoji{font-size:22px;margin-bottom:8px;display:block}
+
+/* ── OPTIONS ── */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt {
+  width:100%;text-align:left;
+  padding:11px 16px 11px 44px;
+  border-radius:12px;
+  border:1.5px solid rgba(233,30,140,0.15);
+  background:var(--bg);
+  color:var(--ink-mid);
+  font-size:13.5px;line-height:1.5;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.15s;
+  position:relative;
+}
+.opt::before {
+  content:'';position:absolute;left:15px;top:50%;transform:translateY(-50%);
+  width:14px;height:14px;border-radius:50%;
+  border:1.5px solid rgba(233,30,140,0.25);
+  background:transparent;transition:all 0.15s;
+}
+.opt:hover{
+  border-color:var(--pink-2);
+  background:var(--pink-bg);
+  color:var(--ink);
+  transform:translateX(3px);
+}
+.opt:hover::before{border-color:var(--pink-2)}
+.opt.sel{
+  background:linear-gradient(135deg, rgba(233,30,140,0.08), rgba(192,132,252,0.08));
+  border-color:var(--pink);
+  color:var(--ink);
+}
+.opt.sel::before{background:var(--pink);border-color:var(--pink)}
+
+/* ── NAV ── */
+.nav-row{display:flex;gap:10px;justify-content:flex-end;margin-top:1.25rem}
+.nav-btn {
+  padding:10px 24px;font-size:13.5px;font-weight:600;
+  border-radius:10px;border:1.5px solid rgba(233,30,140,0.25);
+  background:var(--paper);color:var(--ink-mid);
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;
+}
+.nav-btn:hover{background:var(--pink-bg);border-color:var(--pink-2);color:var(--ink)}
+.nav-btn.primary {
+  background:linear-gradient(135deg, var(--pink), var(--lavender));
+  color:white;border:none;
+}
+.nav-btn.primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(233,30,140,0.3)}
+.nav-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none!important}
+
+/* ── RESULTS ── */
+.result-wrap{animation:card-in 0.5s cubic-bezier(.4,0,.2,1) both}
+.result-hero {
+  background:linear-gradient(135deg, var(--pink), var(--lavender), var(--teal));
+  border-radius:24px;padding:2.5rem 2rem;text-align:center;
+  margin-bottom:1.5rem;position:relative;overflow:hidden;
+}
+.result-hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.result-unicorn{font-size:52px;margin-bottom:8px;position:relative;z-index:1}
+.result-label{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;
+  text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;
+  position:relative;z-index:1;
+}
+.result-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,5vw,44px);
+  color:white;line-height:1.1;
+  margin-bottom:10px;
+  position:relative;z-index:1;
+}
+.result-tagline{
+  font-size:15px;color:rgba(255,255,255,0.85);
+  font-style:italic;font-family:'Playfair Display',serif;
+  position:relative;z-index:1;
+}
+.result-body{
+  background:var(--paper);border-radius:18px;
+  border:1.5px solid var(--border);
+  padding:1.75rem 2rem;margin-bottom:1.25rem;
+}
+.result-section-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:8px;
+}
+.result-desc{
+  font-size:14.5px;line-height:1.85;color:var(--ink-mid);margin-bottom:1.5rem;
+}
+.result-desc strong{color:var(--ink);font-weight:600}
+.result-desc em{color:var(--pink);font-style:italic}
+.trait-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:1.5rem}
+.trait{
+  padding:5px 13px;border-radius:20px;font-size:12px;font-weight:500;
+  background:linear-gradient(135deg, rgba(233,30,140,0.1), rgba(192,132,252,0.1));
+  border:1px solid rgba(233,30,140,0.2);color:var(--pink);
+}
+.science-box{
+  background:linear-gradient(135deg, rgba(6,182,212,0.06), rgba(233,30,140,0.04));
+  border-left:3px solid var(--teal);
+  border-radius:0 10px 10px 0;
+  padding:1rem 1.25rem;margin-top:1rem;
+}
+.science-box p{font-size:13px;color:var(--ink-mid);line-height:1.8}
+.science-box strong{color:var(--teal);font-weight:600}
+.also-row{
+  background:var(--paper);border-radius:18px;border:1.5px solid var(--border);
+  padding:1.5rem 2rem;
+}
+.also-title{
+  font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);margin-bottom:1rem;
+}
+.also-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.also-card{
+  padding:10px 12px;border-radius:10px;
+  background:var(--bg);border:1px solid var(--border);
+  font-size:12.5px;color:var(--ink-mid);line-height:1.5;
+}
+.also-card strong{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.5rem;justify-content:center}
+.share-btn{
+  padding:11px 24px;font-size:13px;font-weight:600;border-radius:10px;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;border:none;
+}
+.share-btn.pink{background:linear-gradient(135deg,var(--pink),var(--lavender));color:white}
+.share-btn.pink:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(233,30,140,0.3)}
+.share-btn.outline{background:var(--paper);color:var(--ink-mid);border:1.5px solid var(--border)}
+.share-btn.outline:hover{background:var(--pink-bg);border-color:var(--pink-2);color:var(--ink)}
+.aaspi-note{
+  text-align:center;margin-top:2rem;
+  font-family:'DM Mono',monospace;font-size:10.5px;
+  color:var(--ink-light);letter-spacing:0.06em;line-height:1.8;
+}
+.aaspi-note a{color:var(--pink);text-decoration:none}
+
+/* print */
+@media print{
+  body::before,.sparkle{display:none}
+  .result-actions,.nav-row{display:none}
+}
+@media(max-width:520px){
+  .also-grid{grid-template-columns:1fr}
+  .wrap{padding:1.5rem 1rem 4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- sparkles injected by JS -->
+
+<div class="wrap">
+
+<!-- ══ INTRO ══ -->
+<div id="intro">
+  <div class="site-header">
+    <div class="header-badge">✦ AASPI Scientific Personality Assessment ✦</div>
+    <h1 class="site-title">What Seismic<br>Attribute <em>Are You?</em></h1>
+    <div class="unicorn-row">🦄 ✨ 🌈 ✨ 🦄</div>
+    <p class="site-sub">
+      Seven questions. One definitive answer. Zero peer review required.<br>
+      <strong>The quiz your geology degree did not prepare you for.</strong>
+    </p>
+    <button class="nav-btn primary" onclick="startQuiz()" style="font-size:15px;padding:13px 36px">
+      Find out who you are →
+    </button>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div id="quiz" style="display:none">
+  <div class="progress-label" id="prog-label">Question 1 of 7</div>
+  <div class="progress-wrap"><div class="progress-fill" id="prog-fill" style="width:14%"></div></div>
+  <div id="q-content"></div>
+</div>
+
+<!-- ══ RESULTS ══ -->
+<div id="results" style="display:none"></div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// SPARKLES
+// ══════════════════════════════════════════════════════════
+const SPARKS = ['✦','★','◆','✿','♦','❋','✵','⬡','✺','⬟'];
+function makeSparkles() {
+  for (let i=0;i<14;i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.textContent = SPARKS[Math.floor(Math.random()*SPARKS.length)];
+    s.style.cssText = `
+      left:${Math.random()*100}vw;
+      top:${20+Math.random()*70}vh;
+      color:hsl(${Math.random()*60+300},80%,65%);
+      animation-delay:${Math.random()*4}s;
+      animation-duration:${3+Math.random()*3}s;
+      font-size:${10+Math.random()*14}px;
+    `;
+    document.body.appendChild(s);
+  }
+}
+makeSparkles();
+
+// ══════════════════════════════════════════════════════════
+// QUESTIONS
+// Each option scores points for specific attributes
+// ══════════════════════════════════════════════════════════
+const QUESTIONS = [
+  {
+    emoji: "🪨",
+    text: "A colleague shows you a seismic time slice. Your first instinct is to...",
+    opts: [
+      { t: "Hunt for the subtle lineaments everyone else missed", scores: { aberrancy:3, coherence:1 } },
+      { t: "Check whether those stripes are geology or acquisition footprint", scores: { disorder:3, coherence:1 } },
+      { t: "Count the color bands and figure out what frequencies are tuning", scores: { spectral:3, envelope:1 } },
+      { t: "Ignore the display settings and look at the raw waveform energy", scores: { envelope:3, instantphase:1 } },
+    ]
+  },
+  {
+    emoji: "🎢",
+    text: "Your relationship with data uncertainty is best described as...",
+    opts: [
+      { t: "I quantify it. Uncertainty is just a number you haven't computed yet.", scores: { disorder:3, dq:1 } },
+      { t: "I feel it in my bones before the numbers confirm it", scores: { aberrancy:3, instantphase:1 } },
+      { t: "I cycle through all possible interpretations until I reach an answer", scores: { instantphase:3, spectral:1 } },
+      { t: "I just report the energy. What you do with it is your problem.", scores: { envelope:3, disorder:1 } },
+    ]
+  },
+  {
+    emoji: "🎉",
+    text: "At a conference reception, you are...",
+    opts: [
+      { t: "Introducing everyone to everyone. The social fabric depends on you.", scores: { coherence:3, envelope:1 } },
+      { t: "In the corner noticing the micro-expressions no one else caught", scores: { aberrancy:3, disorder:1 } },
+      { t: "Explaining that you work across ALL social classes without prior assumptions", scores: { dq:3, coherence:1 } },
+      { t: "Vibrating at multiple frequencies simultaneously and it's fine", scores: { spectral:3, instantphase:1 } },
+    ]
+  },
+  {
+    emoji: "🗺️",
+    text: "Your approach to a new interpretation project:",
+    opts: [
+      { t: "Start from the geology. Let the physics tell me what to measure.", scores: { dq:3, aberrancy:1 } },
+      { t: "First pass: how continuous are these reflectors?", scores: { coherence:3, nonparallelism:1 } },
+      { t: "How much can I deviate from everyone else's approach and still be right?", scores: { nonparallelism:3, aberrancy:1 } },
+      { t: "How do I decompose this into its fundamental components?", scores: { spectral:3, instantphase:1 } },
+    ]
+  },
+  {
+    emoji: "🛠️",
+    text: "Your colleagues describe your working style as...",
+    opts: [
+      { t: "Sees things no one else sees, slightly unsettling", scores: { aberrancy:3, disorder:1 } },
+      { t: "Chaotic but always right in the end", scores: { instantphase:3, spectral:1 } },
+      { t: "Reliable. Always there. Never dramatic.", scores: { envelope:3, coherence:1 } },
+      { t: "Deeply nonconformist. Won't follow your reflector parallelism.", scores: { nonparallelism:3, aberrancy:1 } },
+    ]
+  },
+  {
+    emoji: "🌈",
+    text: "You would describe your inner life as...",
+    opts: [
+      { t: "A rainbow of simultaneous frequency components, beautifully decomposed", scores: { spectral:3, envelope:1 } },
+      { t: "Pure energy. Amplitude only. No phase drama.", scores: { envelope:3, dq:1 } },
+      { t: "Constantly measuring how far everything deviates from expectations", scores: { nonparallelism:3, disorder:1 } },
+      { t: "A series of discontinuities that map surprisingly well to my biography", scores: { coherence:3, nonparallelism:1 } },
+    ]
+  },
+  {
+    emoji: "🔭",
+    text: "Your scientific superpower is...",
+    opts: [
+      { t: "Detecting the fault before anyone has thrown it yet", scores: { aberrancy:3, instantphase:1 } },
+      { t: "Knowing exactly how much signal is real and how much is noise", scores: { disorder:3, envelope:1 } },
+      { t: "Working across all classes without needing to know the petrophysics first", scores: { dq:3, spectral:1 } },
+      { t: "Seeing phase relationships that everyone else squashes with normalization", scores: { instantphase:3, nonparallelism:1 } },
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════════════════════════
+const RESULTS = {
+  coherence: {
+    name: "Similarity / Coherence",
+    emoji: "🕸️",
+    tagline: "You hold everything together. Whether anyone notices is a separate question.",
+    traits: ["Socially aware","Sees lateral relationships","Hates vertical mixing","Dip-guided or bust"],
+    desc: `You are the <strong>connective tissue of any interpretation project</strong>. You notice when the fabric of a room breaks down - when someone says something that doesn't quite match the people around them, when the continuity is lost. You map faults at parties. You see discontinuities in seminar slides. You can't help it.<br><br>Your weakness is that <em>you need structural dip as input</em> or you start mixing up layers you have no business mixing. Everyone has at least one software setting they need to have right. Yours is this one.`,
+    science: "Coherence measures the lateral similarity of seismic waveforms along structural dip. A coherence low = a fault, fracture, or channel edge. The dip guidance is not optional - vertical computation windows average geology from different stratigraphic levels and produce what looks like an attribute but is not one.",
+    also: [
+      { name: "Aberrancy", why: "Also sees the fault - but earlier" },
+      { name: "Nonparallelism", why: "Also measures deviation, more chaotically" },
+    ]
+  },
+  aberrancy: {
+    name: "Aberrancy",
+    emoji: "🔍",
+    tagline: "You knew something was wrong before the fault even existed. Impressive. Slightly alarming.",
+    traits: ["Third-derivative thinker","Pre-fault intuition","Subtle flexure detector","Basement whisperer"],
+    desc: `You are the third derivative of structure. <strong>Not the first. Not the second. The third.</strong> This means you feel the change in the rate of change of the rate of change, and honestly that tracks because you always knew something was about to happen before it did.<br><br>While curvature is still congratulating itself for finding the fold, you've already moved on to the subtle pre-fault flexures that will become tomorrow's problem. You are particularly useful in basement settings, where the normal methods have given up. <em>You have never given up.</em>`,
+    science: "Aberrancy is the third spatial derivative of reflector structure. It detects subtle pre-fault flexures - places where the curvature is changing before a visible offset develops. Especially diagnostic for basement-involved faults and fracture corridors that coherence and curvature miss entirely. Developed at AASPI.",
+    also: [
+      { name: "Curvature (k1/k2)", why: "Your less dramatic sibling" },
+      { name: "Disorder", why: "Also knows where things are falling apart" },
+    ]
+  },
+  envelope: {
+    name: "Envelope Amplitude",
+    emoji: "💪",
+    tagline: "Pure energy. No phase drama. This is not a personality flaw.",
+    traits: ["Amplitude-preserved","Phase-independent","Reliable","The one who actually shows up"],
+    desc: `You are the reflection strength. The instantaneous amplitude. The <strong>pure energy of the waveform with all the phase chaos removed</strong>. While instantaneous phase is spiraling through its cyclic −180° to +180° existential loop, you are just steadily measuring the energy and getting on with it.<br><br>You require amplitude-preserved data to be meaningful, which means you have high standards and you're not apologizing for them. Short-gate AGC? Absolutely not. <em>You have standards, and they are grounded in physics.</em> The number of people who have tried to run you on AGC-processed data and then blamed you for the result - countless.`,
+    science: "The envelope (instantaneous amplitude) measures the total energy of the seismic trace, independent of phase. High envelope = strong impedance contrast. It is a primary DHI indicator, channel-fill detector, and reef boundary marker - but ONLY on amplitude-preserved data. On AGC-processed data, it measures the gain function, not the geology.",
+    also: [
+      { name: "Sweetness", why: "Your more frequency-aware cousin" },
+      { name: "RMS Amplitude", why: "Your slightly calmer stablemate" },
+    ]
+  },
+  instantphase: {
+    name: "Instantaneous Phase",
+    emoji: "🌀",
+    tagline: "Chaotic, cyclical, endlessly interesting. Best used in cosine form for mental health.",
+    traits: ["Wraps at ±180°","Amplitude-independent","Waveform shape expert","Needs transformation to be ML-ready"],
+    desc: `You are instantaneous phase: <strong>fascinating, cyclical, and a liability in machine learning without appropriate transformation</strong>. You see waveform shape independent of amplitude, which is genuinely useful - you can trace a reflection through a dim zone that has stumped everyone else. But you also wrap at −180° and +180°, which means you and −179° are neighbors but the computer thinks you're on opposite sides of the universe.<br><br>Your zen form - <em>the cosine of instantaneous phase</em> - is you, but with the wraparound resolved. Calmer. Continuous. Equally insightful. Growth.`,
+    science: "Instantaneous phase tracks the phase angle of the seismic trace through time. It is amplitude-independent and reveals waveform continuity through amplitude dim zones. The problem: it wraps cyclically at ±180°, creating geometrically incoherent distances in ML attribute space. The fix is trigonometric decomposition: use cosine of instantaneous phase for any ML input.",
+    also: [
+      { name: "Cosine of Instantaneous Phase", why: "Your resolved, ML-ready form" },
+      { name: "Spectral Decomposition", why: "Also frequency-aware, less existential" },
+    ]
+  },
+  spectral: {
+    name: "Spectral Decomposition",
+    emoji: "🌈",
+    tagline: "You see the world in frequencies. Others see one seismic trace. You see an infinite rainbow.",
+    traits: ["Multi-frequency thinker","Tuning-sensitive","Needs spectral balancing first","RGB blend enthusiast"],
+    desc: `You are a <strong>rainbow of seismic frequency components</strong>, decomposed and beautiful. Where everyone else sees one wiggle, you see a spectrum - the 20Hz voice, the 35Hz voice, the 50Hz voice - each one mapping a different tuning thickness, a different depositional layer, a different geologic story.<br><br>You do require spectral balancing before you get going, because without it you primarily map the shape of the source wavelet and that is, frankly, not your best work. <em>You deserve good preprocessing.</em> Also available in four flavors: CWT, CMP, max entropy, and VMD. You contain multitudes.`,
+    science: "Spectral decomposition decomposes the seismic trace into per-frequency voice components. At tuning thickness (approximately λ/4), amplitude is maximized, so different frequencies highlight beds of different thicknesses. AASPI implements four algorithms: spec_cwt (general purpose), spec_cmp (highest resolution), spec_max_entropy (improved low-frequency temporal resolution), spec_vmd (variational mode decomposition).",
+    also: [
+      { name: "Instantaneous Frequency", why: "Less decomposed, more immediate" },
+      { name: "Thin Bed Decomposition", why: "Your sub-tuning specialist sibling" },
+    ]
+  },
+  nonparallelism: {
+    name: "Nonparallelism",
+    emoji: "〰️",
+    tagline: "You quantify deviation from conformity. Personally and professionally.",
+    traits: ["Measures dip deviation","Gradient deviation","Total deviation","Won't follow your reflector"],
+    desc: `You measure how much the reflectors around you deviate from expected parallelism. <strong>Ordered stratigraphy, conformable bedding, regular patterns - you are not interested.</strong> You are interested in where things stop conforming, where the chaos begins, where the mass transport deposit ends and the turbidite starts.<br><br>You come in three flavors: dip deviation, gradient deviation, and total deviation - each measuring a slightly different kind of not-following-the-rules. You are particularly powerful at MTC boundaries and seismic facies discrimination. <em>Geologic chaos is your natural habitat.</em> You often outperform coherence at the places that matter most.`,
+    science: "Nonparallelism quantifies lateral variation in reflector parallelism, outputting three volumes: dip_deviation, gradient_deviation, and total_deviation. It is a powerful discriminator of ordered stratigraphy vs. chaotic facies, particularly effective at MTC boundaries and seismic facies interfaces where coherence loses its edge. Developed at AASPI.",
+    also: [
+      { name: "Coherence", why: "Also measures discontinuity, more conformist" },
+      { name: "Chaos", why: "The extreme version of your energy" },
+    ]
+  },
+  disorder: {
+    name: "Disorder",
+    emoji: "📊",
+    tagline: "You are the only one who will tell you where things are genuinely falling apart.",
+    traits: ["Volumetric S/N estimate","Amplitude-normalized","Brutally honest","ML confidence map"],
+    desc: `You are a <strong>volumetric signal-to-noise ratio estimate</strong>, normalized by RMS amplitude so you're not just mapping where the amplitudes are loud. You map where the interpretation is trustworthy and where it is not, and you say so clearly, without comfort.<br><br>In a world full of attributes that tell you what the geology IS, you tell people what the geology <em>might not be</em>. This is underappreciated at parties but invaluable in practice. ML workflows that include you as an input are saying: here are the areas where you should not trust the classifier. That kind of honesty is rare. <em>Guard it.</em>`,
+    science: "Disorder is a volumetric signal-to-noise estimate developed by Al-Dossary (2013), normalized by RMS amplitude to remove sensitivity to amplitude variations. High disorder = low interpretation confidence. Used in ML workflows as a quality-weighting input that flags where predicted facies are unreliable. One of the few attributes that tells you about the data rather than the geology.",
+    also: [
+      { name: "Coherence", why: "Also maps confidence, indirectly" },
+      { name: "Aberrancy", why: "Also knows where things are off" },
+    ]
+  },
+  dq: {
+    name: "Distance Quadrant (DQ) Trace",
+    emoji: "🎯",
+    tagline: "You work across all AVO classes without needing to know the petrophysics first. You love that about yourself.",
+    traits: ["AVO crossplot distance","Works without wavelet knowledge","All AVO classes","Relative porosity indicator"],
+    desc: `You are √(A²+B²) on the AVO crossplot - the <strong>distance from the origin, measured at every seismic sample across the entire volume</strong>. You don't need a priori petrophysics. You don't need wavelet knowledge. You don't need the user to have decided which AVO class they're dealing with. You work anyway.<br><br>Together with Theta PX (the polar angle - your companion, your counterpart, your other half), you enable full 3D AVO cluster analysis. Half Isochron is your z-axis. You are a system, not just an attribute. <em>You're not the standard commercial platform option. You know that. You're fine with it.</em>`,
+    science: "The Distance Quadrant (DQ) trace is computed as √(A²+B²) where A = AVO intercept and B = AVO gradient. It provides a relative porosity and hydrocarbon pore volume estimate at every seismic sample, across all AVO classes, without requiring a priori petrophysics or wavelet knowledge. Developed at AASPI; not available in standard commercial platforms.",
+    also: [
+      { name: "Theta PX", why: "Your inseparable counterpart" },
+      { name: "Sweetness", why: "The post-stack DHI indicator for when you're unavailable" },
+    ]
+  }
+};
+
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
+let state = { q:0, answers:[], scores:{} };
+
+function startQuiz() {
+  document.getElementById('intro').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  renderQ();
+}
+
+function renderQ() {
+  const q = QUESTIONS[state.q];
+  const pct = ((state.q+1)/QUESTIONS.length*100).toFixed(0);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = `Question ${state.q+1} of ${QUESTIONS.length}`;
+
+  const sel = state.answers[state.q];
+  const optsHtml = q.opts.map((o,i) =>
+    `<button class="opt${sel===i?' sel':''}" onclick="pick(${i})">${o.t}</button>`
+  ).join('');
+
+  document.getElementById('q-content').innerHTML = `
+    <div class="q-card">
+      <div class="q-num">Question ${state.q+1}</div>
+      <span class="q-emoji">${q.emoji}</span>
+      <div class="q-text">${q.text}</div>
+      <div class="opts">${optsHtml}</div>
+      <div class="nav-row">
+        ${state.q > 0 ? `<button class="nav-btn" onclick="back()">← Back</button>` : ''}
+        <button class="nav-btn primary" id="next-btn" onclick="next()" ${sel!==undefined?'':'disabled'}>
+          ${state.q === QUESTIONS.length-1 ? 'See my result ✨' : 'Next →'}
+        </button>
+      </div>
+    </div>`;
+}
+
+function pick(i) {
+  state.answers[state.q] = i;
+  renderQ();
+}
+
+function back() {
+  if (state.q > 0) { state.q--; renderQ(); }
+}
+
+function next() {
+  if (state.answers[state.q] === undefined) return;
+  // tally score
+  const opts = QUESTIONS[state.q].opts;
+  const picked = opts[state.answers[state.q]];
+  Object.entries(picked.scores).forEach(([k,v]) => {
+    state.scores[k] = (state.scores[k]||0) + v;
+  });
+
+  if (state.q < QUESTIONS.length-1) {
+    state.q++;
+    renderQ();
+  } else {
+    showResults();
+  }
+}
+
+function showResults() {
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  // find winner
+  const winner = Object.entries(state.scores).sort((a,b)=>b[1]-a[1])[0][0];
+  const r = RESULTS[winner];
+
+  // runner-up
+  const runners = Object.entries(state.scores)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(1,3)
+    .map(([k]) => RESULTS[k]);
+
+  const alsoHtml = [...r.also, ...runners.slice(0,2-r.also.length)].map(a =>
+    `<div class="also-card"><strong>${a.name}</strong>${a.why}</div>`
+  ).join('');
+
+  document.getElementById('results').innerHTML = `
+    <div class="result-wrap">
+      <div class="result-hero">
+        <div class="result-unicorn">${r.emoji}</div>
+        <div class="result-label">You are...</div>
+        <div class="result-name">${r.name}</div>
+        <div class="result-tagline">"${r.tagline}"</div>
+      </div>
+
+      <div class="result-body">
+        <div class="result-section-label">✦ Your personality profile</div>
+        <div class="trait-row">${r.traits.map(t=>`<span class="trait">${t}</span>`).join('')}</div>
+        <div class="result-desc">${r.desc}</div>
+        <div class="science-box">
+          <p><strong>The actual science:</strong> ${r.science}</p>
+        </div>
+      </div>
+
+      <div class="also-row">
+        <div class="also-title">Your attribute neighbors 🌸</div>
+        <div class="also-grid">${alsoHtml}</div>
+      </div>
+
+      <div class="result-actions">
+        <button class="share-btn pink" onclick="window.print()">Save as PDF 🖨️</button>
+        <button class="share-btn outline" onclick="restart()">Take it again 🔄</button>
+      </div>
+
+      <div class="aaspi-note">
+        Made with 🦄 energy by AASPI · University of Oklahoma<br>
+        Real attribute science: <a href="https://www.ou.edu/mcee/labs/aaspi">aaspi.ou.edu</a>
+        &nbsp;·&nbsp;
+        <a href="https://hbedle-subsurface.github.io/seismic-attribute-selector/">Attribute Selection Guide</a>
+      </div>
+    </div>`;
+}
+
+function restart() {
+  state = { q:0, answers:[], scores:{} };
+  document.getElementById('results').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  renderQ();
+}
+</script>
+</body>
+</html>
