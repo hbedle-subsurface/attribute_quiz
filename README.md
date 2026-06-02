@@ -1,17 +1,17 @@
 # What Seismic Attribute Are You?
 
-**Developed by [Dr. Heather Bedle](mailto:hbedle@ou.edu) specifically for [Dr. April Moreno-Ward](mailto:April.MorenoWard-1@ou.edu)**  
+**Developed by [Dr. Heather Bedle](mailto:hbedle@ou.edu) and [Dr. April Moreno-Ward](mailto:April.MorenoWard-1@ou.edu)**  
 AASPI (Attribute Assisted Seismic Processing & Interpretation)  
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
-**[Launch the quiz](https://hbedle-subsurface.github.io/attribute_quiz/)**
+**[Launch the quiz](https://hbedle-subsurface.github.io/seismic_ml_assessment/)** ← update with actual URL
 
 ---
 
 ## The short version
 
-Seven questions. Eight possible results. Zero peer review required.
+Eight questions. Nine possible results. Zero peer review required.
 
 This is a personality quiz - in the tradition of magazine quizzes and internet rabbit holes - but every result comes with a genuine explanation of what the attribute measures, why it matters, and what goes wrong when it is used incorrectly. The science is real. The personality profiles are... also real, if you think about it.
 
@@ -25,16 +25,17 @@ This quiz was built as a lighthearted way to introduce attributes to anyone who 
 
 ---
 
-## The eight attributes you can be
+## The nine attributes you can be
 
 - **Similarity / Coherence** - holds everything together; maps faults at parties
 - **Aberrancy** - third derivative of structure; knew something was wrong before the fault existed
 - **Envelope Amplitude** - pure energy, no phase drama, high standards about AGC
-- **Instantaneous Phase** - chaotic, cyclical, best used in cosine form for everyone's benefit
+- **Instantaneous Phase** - chaotic, cyclical, loops through every interpretation until something lands
+- **Cosine of Instantaneous Phase** - instantaneous phase after the transformation; the loops still happen but they resolve now; finds channels, occasionally unicorns 🦄
 - **Spectral Decomposition** - sees the world in frequencies; contains multitudes
 - **Nonparallelism** - quantifies deviation from conformity, personally and professionally
 - **Disorder** - volumetric S/N estimate; the only one who tells you where things are falling apart
-- **Distance Quadrant (DQ) Trace** - works across all AVO classes without needing the petrophysics first
+- **Distance Quadrant (DQ) Trace** - works across all AVO classes without needing the petrophysics first; a specialist result, harder to get
 
 Each result includes a plain-language personality profile, a trait list, and a science box explaining what the attribute actually does and why it matters for seismic interpretation.
 
@@ -53,7 +54,7 @@ Particularly useful for:
 
 ## How to use it
 
-Open the link above. Seven questions, each with four options. Takes about two minutes. At the end you get your attribute, a personality description, and the actual science behind it. The result page can be saved as a PDF.
+Open the link above. Eight questions, each with four or five options. Takes about two minutes. At the end you get your attribute, a personality description, and the actual science behind it. The result page can be saved as a PDF.
 
 Runs entirely in your browser - nothing is stored or transmitted.
 
@@ -80,4 +81,4 @@ You are free to share and adapt this tool provided you give appropriate credit a
 
 Developed at AASPI (Attribute Assisted Seismic Processing and Interpretation), University of Oklahoma, School of Geosciences. Built on the AASPI attribute library developed over more than a decade of research by the AASPI consortium and its sponsors.
 
-The attribute science in the result cards draws on Chopra and Marfurt (2007, 2024), the AASPI software documentation, and the author's experience explaining to students why you cannot just run coherence without computing dip first.
+The attribute science in the result cards draws on Chopra and Marfurt (2007, 2024), the AASPI software documentation, and the authors' collective experience explaining to students why you cannot just run coherence without computing dip first.
