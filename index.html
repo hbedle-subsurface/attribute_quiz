@@ -630,8 +630,8 @@ function showResults() {
     .slice(1,3)
     .map(([k]) => RESULTS[k]);
 
-  const alsoHtml = [...r.also, ...runners.slice(0,2-r.also.length)].map(a =>
-    `<div class="also-card"><strong>${a.name}</strong>${a.why}</div>`
+  const alsoHtml = [...r.also, ...runners.filter(x=>x).slice(0,2-r.also.length)].map(a =>
+    a ? `<div class="also-card"><strong>${a.name}</strong>${a.why}</div>` : ''
   ).join('');
 
   document.getElementById('results').innerHTML = `
