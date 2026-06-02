@@ -356,8 +356,8 @@ const QUESTIONS = [
       { t: "Hunt for the subtle lineaments everyone else missed", scores: { aberrancy:3, coherence:1 } },
       { t: "Check whether those stripes are geology or acquisition footprint", scores: { disorder:3, coherence:1 } },
       { t: "Count the color bands and figure out what frequencies are tuning", scores: { spectral:3, envelope:1 } },
-      { t: "Ignore the display settings and look at the raw waveform energy", scores: { envelope:3, instantphase:1 } },
-      { t: "Announce my interpretation, to no one in particular, then immediately doubt it", scores: { instantphase:3, disorder:1 } },
+      { t: "Ignore the display settings and look at the raw waveform energy", scores: { envelope:3, dq:2 } },
+      { t: "Announce my interpretation, to no one in particular, then immediately doubt it", scores: { cosine:3, instantphase:1 } },
     ]
   },
   {
@@ -365,10 +365,10 @@ const QUESTIONS = [
     text: "Your relationship with data uncertainty is best described as...",
     opts: [
       { t: "I quantify it. Uncertainty is just a number you haven't computed yet.", scores: { disorder:3, dq:1 } },
-      { t: "I feel it in my bones before the numbers confirm it", scores: { aberrancy:3, instantphase:1 } },
+      { t: "I feel it in my bones before the numbers confirm it", scores: { aberrancy:3, cosine:1 } },
       { t: "I cycle through all possible interpretations until I reach an answer", scores: { instantphase:3, spectral:1 } },
       { t: "I just report the energy. What you do with it is your problem.", scores: { envelope:3, disorder:1 } },
-      { t: "Loop through every possible explanation, including the wrong ones, out loud, until something clicks", scores: { instantphase:3, nonparallelism:1 } },
+      { t: "Loop through every possible explanation, including the wrong ones, out loud, until something clicks", scores: { cosine:3, dq:1 } },
     ]
   },
   {
@@ -379,7 +379,7 @@ const QUESTIONS = [
       { t: "In the corner, noticing the micro-expressions no one else caught", scores: { aberrancy:3, disorder:1 } },
       { t: "Explaining that you work across ALL social classes without prior assumptions", scores: { dq:3, coherence:1 } },
       { t: "Vibrating at multiple frequencies simultaneously, and it's fine", scores: { spectral:3, instantphase:1 } },
-      { t: "Accidentally making it weirder while trying to fix it, but somehow people remember you fondly 🦄", scores: { instantphase:3, spectral:1 } },
+      { t: "Accidentally making it weirder while trying to fix it, but somehow people remember you fondly 🦄", scores: { cosine:3, spectral:1 } },
     ]
   },
   {
@@ -390,7 +390,7 @@ const QUESTIONS = [
       { t: "First pass: how continuous are these reflectors?", scores: { coherence:3, nonparallelism:1 } },
       { t: "How much can I deviate from everyone else's approach and still be right?", scores: { nonparallelism:3, aberrancy:1 } },
       { t: "How do I decompose this into its fundamental components?", scores: { spectral:3, instantphase:1 } },
-      { t: "There's a channel in here somewhere. I will find it.... or a unicorn.", scores: { instantphase:3, envelope:1 } },
+      { t: "There's a channel in here somewhere. I will find it.... or a unicorn.", scores: { cosine:3, envelope:1 } },
     ]
   },
   {
@@ -401,7 +401,7 @@ const QUESTIONS = [
       { t: "Chaotic but always right in the end", scores: { instantphase:3, spectral:1 } },
       { t: "Reliable. Always there. Never dramatic.", scores: { envelope:3, coherence:1 } },
       { t: "Deeply nonconformist. Won't follow your reflector parallelism.", scores: { nonparallelism:3, aberrancy:1 } },
-      { t: "Says things that sound unhinged mid-process, lands the answer anyway", scores: { instantphase:3, aberrancy:1 } },
+      { t: "Says things that sound unhinged mid-process, lands the answer anyway", scores: { cosine:3, aberrancy:1 } },
     ]
   },
   {
@@ -412,7 +412,7 @@ const QUESTIONS = [
       { t: "Pure energy. Amplitude only. No phase drama.", scores: { envelope:3, dq:1 } },
       { t: "Constantly measuring how far everything deviates from expectations", scores: { nonparallelism:3, disorder:1 } },
       { t: "A series of discontinuities that map surprisingly well to my biography", scores: { coherence:3, nonparallelism:1 } },
-      { t: "A recursive loop that sounds alarming from the outside but resolves something correct in the end", scores: { instantphase:3, disorder:1 } },
+      { t: "A recursive loop that sounds alarming from the outside but resolves something correct in the end", scores: { instantphase:3, cosine:1 } },
     ]
   },
   {
@@ -423,20 +423,21 @@ const QUESTIONS = [
       { t: "Software defaults", scores: { aberrancy:3, nonparallelism:1 } },
       { t: "The person who normalized everything and called it done", scores: { instantphase:3, dq:1 } },
       { t: "Vertical computation windows", scores: { coherence:3, envelope:1 } },
-      { t: "Silence in a room that's been quiet one second too long - or data that won't speak to me", scores: { instantphase:3, spectral:1 } },
+      { t: "Silence in a room that's been quiet one second too long - or data that won't speak to me", scores: { spectral:3, cosine:1 } },
     ]
   },
   {
     emoji: "🔁",
     text: "When you're mid-explanation and realize you might be wrong, you...",
     opts: [
-      { t: "Keep going. The answer is somewhere in the next sentence.", scores: { aberrancy:3, instantphase:1 } },
+      { t: "Keep going. The answer is somewhere in the next sentence.", scores: { aberrancy:3, dq:1 } },
       { t: "Go very quiet and recalculate internally", scores: { disorder:3, dq:1 } },
-      { t: "Say something that sounds completely unhinged, then arrive at the right answer anyway", scores: { instantphase:3, nonparallelism:1 } },
+      { t: "Say something that sounds completely unhinged, then arrive at the right answer anyway", scores: { cosine:3, instantphase:1 } },
       { t: "Ask if anyone wants coffee and restart from scratch", scores: { envelope:3, coherence:1 } },
     ]
   }
 ];
+
 
 // ══════════════════════════════════════════════════════════
 // RESULTS
@@ -481,13 +482,13 @@ const RESULTS = {
   instantphase: {
     name: "Instantaneous Phase",
     emoji: "🌀",
-    tagline: "Chaotic, cyclical, endlessly interesting. Best used in cosine form for mental health.",
-    traits: ["Wraps at ±180°","Amplitude-independent","Waveform shape expert","Needs transformation to be ML-ready"],
-    desc: `You are instantaneous phase: <strong>fascinating, cyclical, and a liability in machine learning without appropriate transformation</strong>. You see waveform shape independent of amplitude, which is genuinely useful - you can trace a reflection through a dim zone that has stumped everyone else. But you also wrap at −180° and +180°, which means you and −179° are neighbors but the computer thinks you're on opposite sides of the universe.<br><br>Your zen form - <em>the cosine of instantaneous phase</em> - is you, but with the wraparound resolved. Calmer. Continuous. Equally insightful. Growth.`,
-    science: "Instantaneous phase tracks the phase angle of the seismic trace through time. It is amplitude-independent and reveals waveform continuity through amplitude dim zones. The problem: it wraps cyclically at ±180°, creating geometrically incoherent distances in ML attribute space. The fix is trigonometric decomposition: use cosine of instantaneous phase for any ML input.",
+    tagline: "Chaotic, cyclical, endlessly interesting. You already know what the cosine of you looks like.",
+    traits: ["Wraps at ±180°","Amplitude-independent","Waveform shape expert","Exists at every sample"],
+    desc: `You are instantaneous phase: <strong>fascinating, cyclical, and a genuine liability in machine learning without appropriate transformation</strong>. You see waveform shape independent of amplitude, which is genuinely useful - you can trace a reflection through a dim zone that has stumped everyone else. But you also wrap at −180° and +180°, which means you and −179° are neighbors and the computer thinks you're on opposite sides of the universe.<br><br>You cycle through every interpretation. You loop. You spiral. You arrive somewhere eventually. People find you exhausting and indispensable in equal measure. <em>The cosine of you is out there doing the same work with less drama - and you respect that, honestly.</em>`,
+    science: "Instantaneous phase tracks the phase angle of the seismic trace through time. It is amplitude-independent and reveals waveform continuity through amplitude dim zones. The problem: it wraps cyclically at ±180°, creating geometrically incoherent distances in ML attribute space. The fix is to take the cosine - which is now its own attribute result in this quiz, because it earned it.",
     also: [
-      { name: "Cosine of Instantaneous Phase", why: "Your resolved, ML-ready form" },
-      { name: "Spectral Decomposition", why: "Also frequency-aware, less existential" },
+      { name: "Cosine of Instantaneous Phase", why: "You, but the ML-ready version" },
+      { name: "Spectral Decomposition", why: "Also frequency-aware, slightly less existential" },
     ]
   },
   spectral: {
@@ -524,6 +525,18 @@ const RESULTS = {
     also: [
       { name: "Coherence", why: "Also maps confidence, indirectly" },
       { name: "Aberrancy", why: "Also knows where things are off" },
+    ]
+  },
+  cosine: {
+    name: "Cosine of Instantaneous Phase",
+    emoji: "🦄",
+    tagline: "You are instantaneous phase after the transformation. The loops still happen. They just resolve now.",
+    traits: ["Continuous","Amplitude-independent","ML-ready","Arrives at the right answer via unexpected routes"],
+    desc: `You are the cosine of instantaneous phase - which means you are <strong>instantaneous phase, but the wraparound problem is solved</strong>. The recursive loops still happen. The mid-process pronouncements that sound alarming from the outside still happen. But instead of cycling between −180° and +180° with no way home, you resolve. Continuously. Correctly.<br><br>You find channels. Sometimes you find unicorns. Occasionally those turn out to be the same thing. People remember you fondly at conferences for reasons they cannot fully articulate. You have never once followed someone else's reflector parallelism and you never will. <em>You arrived here by an unexpected route. That tracks.</em>`,
+    science: "Cosine of instantaneous phase solves the wraparound problem that makes raw instantaneous phase unsuitable for ML input. Because phase wraps at ±180°, the values -179° and +179° are nearly identical geologically but appear maximally different numerically. Taking the cosine maps the full cycle onto a continuous -1 to +1 range with no discontinuity. It preserves the waveform shape information of instantaneous phase while making it geometrically coherent for distance-based clustering methods.",
+    also: [
+      { name: "Instantaneous Phase", why: "Your pre-transformation self" },
+      { name: "Nonparallelism", why: "Also refuses to follow the reflector" },
     ]
   },
   dq: {
