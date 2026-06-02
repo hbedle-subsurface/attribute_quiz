@@ -5,7 +5,7 @@ AASPI (Attribute Assisted Seismic Processing & Interpretation)
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
-**[Launch the quiz](https://hbedle-subsurface.github.io/seismic_ml_assessment/)** ← update with actual URL
+**[Launch the quiz](https://hbedle-subsurface.github.io/attribute_quiz/)** 
 
 ---
 
