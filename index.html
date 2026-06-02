@@ -357,6 +357,7 @@ const QUESTIONS = [
       { t: "Check whether those stripes are geology or acquisition footprint", scores: { disorder:3, coherence:1 } },
       { t: "Count the color bands and figure out what frequencies are tuning", scores: { spectral:3, envelope:1 } },
       { t: "Ignore the display settings and look at the raw waveform energy", scores: { envelope:3, instantphase:1 } },
+      { t: "Announce my interpretation, to no one in particular, then immediately doubt it", scores: { instantphase:3, disorder:1 } },
     ]
   },
   {
@@ -367,6 +368,7 @@ const QUESTIONS = [
       { t: "I feel it in my bones before the numbers confirm it", scores: { aberrancy:3, instantphase:1 } },
       { t: "I cycle through all possible interpretations until I reach an answer", scores: { instantphase:3, spectral:1 } },
       { t: "I just report the energy. What you do with it is your problem.", scores: { envelope:3, disorder:1 } },
+      { t: "Loop through every possible explanation, including the wrong ones, out loud, until something clicks", scores: { instantphase:3, nonparallelism:1 } },
     ]
   },
   {
@@ -374,9 +376,10 @@ const QUESTIONS = [
     text: "At a conference reception, you are...",
     opts: [
       { t: "Introducing everyone to everyone. The social fabric depends on you.", scores: { coherence:3, envelope:1 } },
-      { t: "In the corner noticing the micro-expressions no one else caught", scores: { aberrancy:3, disorder:1 } },
+      { t: "In the corner, noticing the micro-expressions no one else caught", scores: { aberrancy:3, disorder:1 } },
       { t: "Explaining that you work across ALL social classes without prior assumptions", scores: { dq:3, coherence:1 } },
-      { t: "Vibrating at multiple frequencies simultaneously and it's fine", scores: { spectral:3, instantphase:1 } },
+      { t: "Vibrating at multiple frequencies simultaneously, and it's fine", scores: { spectral:3, instantphase:1 } },
+      { t: "Accidentally making it weirder while trying to fix it, but somehow people remember you fondly 🦄", scores: { instantphase:3, spectral:1 } },
     ]
   },
   {
@@ -387,6 +390,7 @@ const QUESTIONS = [
       { t: "First pass: how continuous are these reflectors?", scores: { coherence:3, nonparallelism:1 } },
       { t: "How much can I deviate from everyone else's approach and still be right?", scores: { nonparallelism:3, aberrancy:1 } },
       { t: "How do I decompose this into its fundamental components?", scores: { spectral:3, instantphase:1 } },
+      { t: "There's a channel in here somewhere. I will find it.... or a unicorn.", scores: { instantphase:3, envelope:1 } },
     ]
   },
   {
@@ -397,6 +401,7 @@ const QUESTIONS = [
       { t: "Chaotic but always right in the end", scores: { instantphase:3, spectral:1 } },
       { t: "Reliable. Always there. Never dramatic.", scores: { envelope:3, coherence:1 } },
       { t: "Deeply nonconformist. Won't follow your reflector parallelism.", scores: { nonparallelism:3, aberrancy:1 } },
+      { t: "Says things that sound unhinged mid-process, lands the answer anyway", scores: { instantphase:3, aberrancy:1 } },
     ]
   },
   {
@@ -407,6 +412,7 @@ const QUESTIONS = [
       { t: "Pure energy. Amplitude only. No phase drama.", scores: { envelope:3, dq:1 } },
       { t: "Constantly measuring how far everything deviates from expectations", scores: { nonparallelism:3, disorder:1 } },
       { t: "A series of discontinuities that map surprisingly well to my biography", scores: { coherence:3, nonparallelism:1 } },
+      { t: "A recursive loop that sounds alarming from the outside but resolves something correct in the end", scores: { instantphase:3, disorder:1 } },
     ]
   },
   {
@@ -417,6 +423,17 @@ const QUESTIONS = [
       { t: "Software defaults", scores: { aberrancy:3, nonparallelism:1 } },
       { t: "The person who normalized everything and called it done", scores: { instantphase:3, dq:1 } },
       { t: "Vertical computation windows", scores: { coherence:3, envelope:1 } },
+      { t: "Silence in a room that's been quiet one second too long - or data that won't speak to me", scores: { instantphase:3, spectral:1 } },
+    ]
+  },
+  {
+    emoji: "🔁",
+    text: "When you're mid-explanation and realize you might be wrong, you...",
+    opts: [
+      { t: "Keep going. The answer is somewhere in the next sentence.", scores: { aberrancy:3, instantphase:1 } },
+      { t: "Go very quiet and recalculate internally", scores: { disorder:3, dq:1 } },
+      { t: "Say something that sounds completely unhinged, then arrive at the right answer anyway", scores: { instantphase:3, nonparallelism:1 } },
+      { t: "Ask if anyone wants coffee and restart from scratch", scores: { envelope:3, coherence:1 } },
     ]
   }
 ];
